@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0013)about:internet -->
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" Content="IE=edge">
+	<title>iKaraっぽい。</title>
+	<style type="text/css">
+html, body, div, ul, li {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    list-style-type:none;
+    font-family: "メイリオ", sans-serif;
+    line-height:1.3;
+}
+html, body {
+    height: 100%;
+    background-color:black;
+    color:white;
+    overflow: hidden;
+}
+#description {
+    background-color:inherit;
+    position:absolute;
+    top:0;
+    left:0;
+}
+#description li{
+    width: 100%;
+    white-space:nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow:    ellipsis; 	
+}
+#message {
+    position:absolute;
+    top:0;
+    right:0;
+text-align: right;
+}
+#wrapper {
+    padding-top:4.2em;
+    margin-left:30px;
+    box-sizing: border-box;
+    height:100%;
+}
+#lyrics {
+    overflow-y:scroll;
+    height:100%;
+}
+.name {
+    color:Magenta;
+    margin-left:10px;
+    font-size:130%;
+}
+.artist {
+    color:Cyan;
+    margin-left:20px;
+}
+.album {
+    color:Lime;
+    margin-left:20px;
+}
+	</style>
+	<script type="text/javascript">
+if(!window.console) {
+    window.console = { log: function(msg){} };
+}
+
+var scrollState = false;
+function startScroll(len,time,nowtime){
+    dom_lyrics = document.getElementById("lyrics");
+    console.log("len="+len+"\ntime="+time+"\nnow="+nowtime+"\nsize="+
+    (dom_lyrics.scrollHeight - dom_lyrics.clientHeight));
+    stopScroll();
+    document.getElementById("state").innerHTML = "Auto Scroll";
+    if(dom_lyrics.scrollHeight - dom_lyrics.clientHeight <10||len<5)return;
+    timeout = time *1000 / len ;
+    now = nowtime *1000 / timeout;
+    autoScroll(len,timeout,now);
+}
+function autoScroll(len,timeout,now){
+    console.log(len+","+timeout+","+now);
+    dom_lyrics = document.getElementById("lyrics");
+
+    pos = dom_lyrics.scrollHeight / len * now - dom_lyrics.clientHeight * 0.5;
+    if(pos < 0)pos = 0;
+    dom_lyrics.scrollTop = pos;
+    if(now > len){
+        scrollState = false;
+        return;
+    }
+    scrollState = setTimeout(function(){
+        autoScroll(len,timeout,++now);
+    },timeout);
+}
+function stopScroll(){
+    if(scrollState){
+        clearTimeout(scrollState);
+        scrollState = false;
+    }
+    document.getElementById("state").innerHTML = "Manual Scroll";
+}
+window.onload = function(){
+    document.addEventListener('mousewheel',stopScroll,false);
+};
+	</script>
+</head>
+<body>
+  <header id="description">
+    <ul>
+      <li class="name">iTunes連携スクリプト「iKaraっぽい。」</li>
+      <li class="artist">製作者：菅野ハリト (Twitter @canno_harito)</li>
+      <li class="album">ver0.00.2(α)</li>
+    </ul>
+  </header>
+  <div id="message">
+    <div id="state">Manual Scroll</div>
+  </div>
+  <div id="wrapper">
+    <div id="lyrics">
+      <table>
+        <tr><td>ファイル構成：</td><td>ikara_poi.js (実行ファイル)</td><tr>
+        <tr><td></td><td>ikara_poi.html (表示用 これ)</td><tr>
+        <tr><td><br></td></tr>
+        <tr><td>実行方法：</td><td>ikara_poi.jsをダブルクリック</td><tr>
+        <tr><td></td><td>iTunesに接続するため、楽曲を再生すると自動で表示する</td></tr>
+        <tr><td></td><td>マウスのホイールの上下で自動スクロールが止まり、</td></tr>
+        <tr><td></td><td>マウスのホイールのクリックで自動スクロールが始まる</td></tr>
+        <tr><td><br></td></tr>
+        <tr><td>Lyric Master連携：</td><td>Lyric Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]で</td></tr>
+<tr><td><td>コピーした文字列の「\」を全て「\\」に書き換えて</td></tr><tr><td><td>ikara_poi.jsの5行目に書き込み、コメントアウトをはずし実行する</td></tr>
+        <tr><td></td><td>右上に[Lyric Master]のボタンが出来る クリックで検索</td></tr>
+        <tr><td><br></td></tr>
+        <tr><td>著作権等：</td><td>外観のデザインや自動スクロールの動き方などは、<a href="http://nebo.seesaa.net/">ねぼすけ様のiKara</a>を参考に作成しました</td></tr>
+        <tr><td></td><td>「iKaraっぽい」の実装については菅野ハリトが著作権を有しておりますが、</td></tr>
+        <tr><td></td><td>改編、転載など全て自由とします</td></tr>
+	<tr><td><br></td></tr>
+        <tr><td>履歴：</td><td>2015/03/02 ver.0.00.1(α)初公開</td></tr>
+	<tr><td></td><td>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</td></tr>
+      </table>
+      
+    </div>
+  </div>
+</body>
+</html>
