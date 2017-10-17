@@ -35,7 +35,7 @@ html, body {
     white-space:nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;
-    text-overflow:    ellipsis; 	
+    text-overflow:    ellipsis;
 }
 #message {
     position:absolute;
@@ -116,7 +116,7 @@ window.onload = function(){
     <ul>
       <li class="name">iTunes連携スクリプト「iKaraっぽい。」</li>
       <li class="artist">製作者：菅野ハリト (Twitter @canno_harito)</li>
-      <li class="album">ver0.00.2(α)</li>
+      <li class="album">ver0.00.3(α)</li>
     </ul>
   </header>
   <div id="message">
@@ -132,10 +132,11 @@ window.onload = function(){
         <tr><td></td><td>iTunesに接続するため、楽曲を再生すると自動で表示する</td></tr>
         <tr><td></td><td>マウスのホイールの上下で自動スクロールが止まり、</td></tr>
         <tr><td></td><td>マウスのホイールのクリックで自動スクロールが始まる</td></tr>
+				<tr><td></td><td>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</td></tr>
         <tr><td><br></td></tr>
-        <tr><td>Lyric Master連携：</td><td>Lyric Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]で</td></tr>
-<tr><td><td>コピーした文字列の「\」を全て「\\」に書き換えて</td></tr><tr><td><td>ikara_poi.jsの5行目に書き込み、コメントアウトをはずし実行する</td></tr>
-        <tr><td></td><td>右上に[Lyric Master]のボタンが出来る クリックで検索</td></tr>
+        <tr><td>Lyrics Master連携：</td><td>Lyrics Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]で</td></tr>
+<tr><td><td>コピーした文字列の「\」を全て「\\」に書き換えて</td></tr><tr><td><td>ikara_poi.jsの5行目に書き込み、コメントアウトをはずし起動する</td></tr>
+        <tr><td></td><td>右上に[Lyrics Master]のボタンが出来る クリックで検索</td></tr>
         <tr><td><br></td></tr>
         <tr><td>著作権等：</td><td>外観のデザインや自動スクロールの動き方などは、<a href="http://nebo.seesaa.net/">ねぼすけ様のiKara</a>を参考に作成しました</td></tr>
         <tr><td></td><td>「iKaraっぽい」の実装については菅野ハリトが著作権を有しておりますが、</td></tr>
@@ -143,8 +144,9 @@ window.onload = function(){
 	<tr><td><br></td></tr>
         <tr><td>履歴：</td><td>2015/03/02 ver.0.00.1(α)初公開</td></tr>
 	<tr><td></td><td>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</td></tr>
+	<tr><td></td><td>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</td></tr>
       </table>
-      
+
     </div>
   </div>
 </body>

@@ -1,24 +1,23 @@
-/*ikara_poi.js iKara‚Á‚Û‚¢Bver.0.00.2 ›–ìƒnƒŠƒg Ú×‚Íikara_poi.html‚ğQÆ*/
-var state=false, ie, dom_description, dom_lyrics, iTunes, fso;
+/*ikara_poi.js iKaraã£ã½ã„ã€‚ver.0.00.3 è©³ç´°ã¯ikara_poi.htmlã‚’å‚ç…§*/
+var state=false, ie, dom_description, dom_lyrics, iTunes, fso, currenttrack_id;
 var html="ikara_poi.html";
 var lyricmaster = false;
 lyricmaster = 'C:\\Windows\\System32\\wscript.exe "C:\\Program_Free\\Lyrics Master\\ExtSupport.js" multi "[title]" "[artist]"';
-/*ªã‚Ìs‚ğ‘‚«Š·‚¦Aæ“ª‚Ìu//v‚ğÁ‚·*/
-
-function ITEvent_OnPlayerPlayEvent(track){//‹È‚ÌŠJn
+/*â†‘ä¸Šã®è¡Œã‚’æ›¸ãæ›ãˆã€å…ˆé ­ã®ã€Œ//ã€ã‚’æ¶ˆã™*/
+/* //iTUnes12.7ã‚ˆã‚Šã‚¤ãƒ™ãƒ³ãƒˆæ¥ç¶šå»ƒæ­¢
+function ITEvent_OnPlayerPlayEvent(track){//æ›²ã®é–‹å§‹
     if(!state)return;
      display_lyrics(track);
 }
-
 function ITEvent_OnQuittingEvent(){
-    //    log("iTunes:I—¹:³í‚ÉI—¹‚µ‚Ü‚µ‚½");
+    //    log("iTunes:çµ‚äº†:æ­£å¸¸ã«çµ‚äº†ã—ã¾ã—ãŸ");
     state=false;
 }
 function ITEvent_OnAboutToPromptUserToQuitEvent(){
-    //    log("iTunes:Error:è“®‚ÅI—¹‚³‚ê‚æ‚¤‚Æ‚µ‚Ü‚µ‚½");
+    //    log("iTunes:Error:æ‰‹å‹•ã§çµ‚äº†ã•ã‚Œã‚ˆã†ã¨ã—ã¾ã—ãŸ");
     iTunes.Quit();
 }
-
+*/
 function display_lyrics(track){
     if(!track){
         dom_lyrics.innerHTML = "No lyrics";
@@ -28,7 +27,7 @@ function display_lyrics(track){
         +"<li class='artist'>"+track.Artist+"</li>"
         +"<li class='album'>"+track.Album+"</li></ul>";
     dom_lyrics.innerHTML= track.Lyrics.replace(/\r/g,"<br>");
-
+    currenttrack_id = track.TrackID;
     var newScript=ie.document.createElement("script");
     newScript.type = "text/javascript";
     newScript.text = "startScroll("+track.Lyrics.split(/\r/).length+","+track.Duration+","+iTunes.PlayerPosition+");";
@@ -40,7 +39,7 @@ function IE_BeforeQuit(){
     //ie.Quit();
     ie=null;
 }
-function waitIE(){    
+function waitIE(){
     while( ie.Busy || ie.readystate != 4 ){
         WScript.Sleep(100);
     }
@@ -56,12 +55,13 @@ dom_lyrics = ie.document.getElementById("lyrics");
 if(lyricmaster){
     var btn = ie.document.createElement("input");
     btn.type = "button";
-    btn.value = "Lyric Master";
+    btn.value = "Lyrics Master";
     btn.id = "lyricmaster";
     ie.document.getElementById("message").appendChild(btn);
 }
 
-iTunes = WScript.CreateObject("iTunes.Application","ITEvent_");
+//iTunes = WScript.CreateObject("iTunes.Application","ITEvent_");//iTuens12.7ã‚ˆã‚Šã‚¤ãƒ™ãƒ³ãƒˆæ¥ç¶šå»ƒæ­¢
+iTunes = WScript.CreateObject("iTunes.Application");
 ie.document.body.onbeforeunload = IE_BeforeQuit;
 ie.document.onmousedown = function (e){
     //WScript.Echo("mousedown:"+e.button);
@@ -83,6 +83,8 @@ if(iTunes.PlayerState != 0){
 
 
 while(state){
+    if(iTunes.PlayerState != 0 && iTunes.CurrentTrack.TrackID != currenttrack_id)
+      display_lyrics(iTunes.CurrentTrack);
     WScript.Sleep(1000);
 }
 if(ie)ie.Quit();
