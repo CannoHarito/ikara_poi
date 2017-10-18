@@ -2,10 +2,10 @@
 <!-- saved from url=(0013)about:internet -->
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" Content="IE=edge">
-	<title>iKaraっぽい。</title>
-	<style type="text/css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" Content="IE=edge">
+  <title>iKaraっぽい。</title>
+  <style type="text/css">
 html, body, div, ul, li {
     margin:0;
     padding:0;
@@ -66,8 +66,20 @@ text-align: right;
     color:Lime;
     margin-left:20px;
 }
-	</style>
-	<script type="text/javascript">
+.manual>#stateManual {
+    display: block;
+}
+.auto>#stateManual {
+    display: none;
+}
+.manual>#stateAuto {
+    display: none;
+}
+.auto>#stateAuto {
+    display: block;
+}
+  </style>
+  <script type="text/javascript">
 if(!window.console) {
     window.console = { log: function(msg){} };
 }
@@ -78,11 +90,11 @@ function startScroll(len,time,nowtime){
     console.log("len="+len+"\ntime="+time+"\nnow="+nowtime+"\nsize="+
     (dom_lyrics.scrollHeight - dom_lyrics.clientHeight));
     stopScroll();
-    document.getElementById("state").innerHTML = "Auto Scroll";
+    document.getElementById("message").className = "auto";
     if(dom_lyrics.scrollHeight - dom_lyrics.clientHeight <10||len<5)return;
     timeout = time *1000 / len ;
     now = nowtime *1000 / timeout;
-    autoScroll(len,timeout,now);
+    autoScroll(len,timeout|0,now);
 }
 function autoScroll(len,timeout,now){
     console.log(len+","+timeout+","+now);
@@ -91,8 +103,11 @@ function autoScroll(len,timeout,now){
     pos = dom_lyrics.scrollHeight / len * now - dom_lyrics.clientHeight * 0.5;
     if(pos < 0)pos = 0;
     dom_lyrics.scrollTop = pos;
-    if(now > len){
+    if(len-now<1){
         scrollState = false;
+        setTimeout(function(){
+          document.getElementById("stateManual").click();
+        },1000+(len-now)*timeout|0);
         return;
     }
     scrollState = setTimeout(function(){
@@ -104,23 +119,29 @@ function stopScroll(){
         clearTimeout(scrollState);
         scrollState = false;
     }
-    document.getElementById("state").innerHTML = "Manual Scroll";
+    document.getElementById("message").className = "manual";
 }
 window.onload = function(){
     document.addEventListener('mousewheel',stopScroll,false);
+    document.getElementById("stateAuto").addEventListener('click',stopScroll);
+    document.addEventListener('mousedown',function (e){
+    //WScript.Echo("mousedown:"+e.button);
+      if(e.button==1)document.getElementById("stateManual").click();
+    });
 };
-	</script>
+  </script>
 </head>
 <body>
   <header id="description">
     <ul>
       <li class="name">iTunes連携スクリプト「iKaraっぽい。」</li>
       <li class="artist">製作者：菅野ハリト (Twitter @canno_harito)</li>
-      <li class="album">ver0.00.3(α)</li>
+      <li class="album">ver0.00.4(α)</li>
     </ul>
   </header>
-  <div id="message">
-    <div id="state">Manual Scroll</div>
+  <div id="message" class="manual">
+    <div id="stateManual">Manual Scroll</div>
+    <div id="stateAuto">Auto Scroll</div>
   </div>
   <div id="wrapper">
     <div id="lyrics">
@@ -130,21 +151,23 @@ window.onload = function(){
         <tr><td><br></td></tr>
         <tr><td>実行方法：</td><td>ikara_poi.jsをダブルクリック</td><tr>
         <tr><td></td><td>iTunesに接続するため、楽曲を再生すると自動で表示する</td></tr>
-        <tr><td></td><td>マウスのホイールの上下で自動スクロールが止まり、</td></tr>
-        <tr><td></td><td>マウスのホイールのクリックで自動スクロールが始まる</td></tr>
-				<tr><td></td><td>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</td></tr>
+        <tr><td></td><td>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</td></tr>
+        <tr><td>自動送りを止める:</td><td>マウスホイールを上下 or 右上の[Auto Scroll]をクリック</td></tr>
+        <tr><td>自動送りを始める:</td><td>マウスホイールをクリック or 右上の[Manual Scroll]をクリック</td></tr>
         <tr><td><br></td></tr>
         <tr><td>Lyrics Master連携：</td><td>Lyrics Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]で</td></tr>
-<tr><td><td>コピーした文字列の「\」を全て「\\」に書き換えて</td></tr><tr><td><td>ikara_poi.jsの5行目に書き込み、コメントアウトをはずし起動する</td></tr>
+        <tr><td></td><td>コピーした文字列の「\」を全て「\\」に書き換えて、ikara_poi.jsの5行目に書き込み、</td></tr>
+        <tr><td></td><td>行頭のコメントアウトをはずして保存し、再び起動する</td></tr>
         <tr><td></td><td>右上に[Lyrics Master]のボタンが出来る クリックで検索</td></tr>
         <tr><td><br></td></tr>
         <tr><td>著作権等：</td><td>外観のデザインや自動スクロールの動き方などは、<a href="http://nebo.seesaa.net/">ねぼすけ様のiKara</a>を参考に作成しました</td></tr>
         <tr><td></td><td>「iKaraっぽい」の実装については菅野ハリトが著作権を有しておりますが、</td></tr>
         <tr><td></td><td>改編、転載など全て自由とします</td></tr>
-	<tr><td><br></td></tr>
+        <tr><td><br></td></tr>
         <tr><td>履歴：</td><td>2015/03/02 ver.0.00.1(α)初公開</td></tr>
-	<tr><td></td><td>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</td></tr>
-	<tr><td></td><td>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</td></tr>
+        <tr><td></td><td>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</td></tr>
+        <tr><td></td><td>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</td></tr>
+        <tr><td></td><td>2017/10/19 ver.0.00.4(α)バグ修正+UI調整 1曲をリピート時に歌詞が先頭に戻らないバグを修正</td></tr>
       </table>
 
     </div>
