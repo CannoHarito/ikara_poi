@@ -21,7 +21,7 @@ html, body, div, ul, li {
 html, body {
     height: 100%;
     background-color:black;
-    color:white;
+    color:#dcdcc8;
     overflow: hidden;
 }
 #description {
@@ -41,11 +41,11 @@ html, body {
     position:absolute;
     top:0;
     right:0;
-text-align: right;
+    text-align: right;
 }
 #wrapper {
     padding-top:4.2em;
-    margin-left:30px;
+    margin-left:10px;
     box-sizing: border-box;
     height:100%;
 }
@@ -86,21 +86,21 @@ if(!window.console) {
 
 var scrollState = false;
 function startScroll(len,time,nowtime){
-    dom_lyrics = document.getElementById("lyrics");
+    var dom_lyrics = document.getElementById("lyrics");
     console.log("len="+len+"\ntime="+time+"\nnow="+nowtime+"\nsize="+
     (dom_lyrics.scrollHeight - dom_lyrics.clientHeight));
     stopScroll();
-    document.getElementById("message").className = "auto";
     if(dom_lyrics.scrollHeight - dom_lyrics.clientHeight <10||len<5)return;
-    timeout = time *1000 / len ;
-    now = nowtime *1000 / timeout;
+    var timeout = time *1000 / len;
+    var now = nowtime *1000 / timeout;
+    document.getElementById("message").className = "auto";
     autoScroll(len,timeout|0,now);
 }
 function autoScroll(len,timeout,now){
     console.log(len+","+timeout+","+now);
-    dom_lyrics = document.getElementById("lyrics");
+    var dom_lyrics = document.getElementById("lyrics");
 
-    pos = dom_lyrics.scrollHeight / len * now - dom_lyrics.clientHeight * 0.5;
+    var pos = dom_lyrics.scrollHeight / len * now - dom_lyrics.clientHeight * 0.5;
     if(pos < 0)pos = 0;
     dom_lyrics.scrollTop = pos;
     if(len-now<1){
@@ -122,10 +122,9 @@ function stopScroll(){
     document.getElementById("message").className = "manual";
 }
 window.onload = function(){
-    document.addEventListener('mousewheel',stopScroll,false);
+    document.addEventListener('mousewheel',stopScroll);
     document.getElementById("stateAuto").addEventListener('click',stopScroll);
-    document.addEventListener('mousedown',function (e){
-    //WScript.Echo("mousedown:"+e.button);
+    document.addEventListener('mousedown',function(e){
       if(e.button==1)document.getElementById("stateManual").click();
     });
 };
@@ -145,31 +144,36 @@ window.onload = function(){
   </div>
   <div id="wrapper">
     <div id="lyrics">
-      <table>
-        <tr><td>ファイル構成：</td><td>ikara_poi.js (実行ファイル)</td><tr>
-        <tr><td></td><td>ikara_poi.html (表示用 これ)</td><tr>
-        <tr><td><br></td></tr>
-        <tr><td>実行方法：</td><td>ikara_poi.jsをダブルクリック</td><tr>
-        <tr><td></td><td>iTunesに接続するため、楽曲を再生すると自動で表示する</td></tr>
-        <tr><td></td><td>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</td></tr>
-        <tr><td>自動送りを止める:</td><td>マウスホイールを上下 or 右上の[Auto Scroll]をクリック</td></tr>
-        <tr><td>自動送りを始める:</td><td>マウスホイールをクリック or 右上の[Manual Scroll]をクリック</td></tr>
-        <tr><td><br></td></tr>
-        <tr><td>Lyrics Master連携：</td><td>Lyrics Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]で</td></tr>
-        <tr><td></td><td>コピーした文字列の「\」を全て「\\」に書き換えて、ikara_poi.jsの5行目に書き込み、</td></tr>
-        <tr><td></td><td>行頭のコメントアウトをはずして保存し、再び起動する</td></tr>
-        <tr><td></td><td>右上に[Lyrics Master]のボタンが出来る クリックで検索</td></tr>
-        <tr><td><br></td></tr>
-        <tr><td>著作権等：</td><td>外観のデザインや自動スクロールの動き方などは、<a href="http://nebo.seesaa.net/">ねぼすけ様のiKara</a>を参考に作成しました</td></tr>
-        <tr><td></td><td>「iKaraっぽい」の実装については菅野ハリトが著作権を有しておりますが、</td></tr>
-        <tr><td></td><td>改編、転載など全て自由とします</td></tr>
-        <tr><td><br></td></tr>
-        <tr><td>履歴：</td><td>2015/03/02 ver.0.00.1(α)初公開</td></tr>
-        <tr><td></td><td>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</td></tr>
-        <tr><td></td><td>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</td></tr>
-        <tr><td></td><td>2017/10/19 ver.0.00.4(α)バグ修正+UI調整 1曲をリピート時に歌詞が先頭に戻らないバグを修正</td></tr>
-      </table>
-
+      <dl>
+        <dt>ファイル構成：</dt>
+        <dd>ikara_poi.js (実行ファイル)</dd>
+        <dd>ikara_poi.html (表示用 これ)</dd>
+        <dt>実行方法：</dt>
+        <dd>ikara_poi.jsをダブルクリック</dd>
+        <dd>iTunesに接続するため、楽曲を再生すると自動で表示する</dd>
+        <dd>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</dd>
+        <dt>自動送りを止める:</dt>
+        <dd>マウスホイールを上下 or 右上の[Auto Scroll]をクリック</dd>
+        <dt>自動送りを始める:</dt>
+        <dd>マウスホイールをクリック or 右上の[Manual Scroll]をクリック</dd>
+        <dt>Lyrics Master連携：</dt>
+        <dd>Lyrics Masterの[環境設定]＞[その他]＞[外部ソフトウェアの設定…]でコピーした文字列を
+          ikara_poi.jsの5行目に張り付ける</dd>
+        <dd>張り付けた文字列の「\」を全て「\\」に書き換える</dd>
+        <dd>行頭のコメントアウト「//」削除する</dd>
+        <dd>「メモ帳」で編集した場合は[名前を付けて保存]から[文字コード]を[ANSI]で保存し、再起動する
+        <dd>右上に[Lyrics Master]のボタンが出来る クリックで検索</dd>
+        <dt>著作権等：</dt>
+        <dd>外観のデザインや自動スクロールの動き方などは、<a href="http://nebo.seesaa.net/">ねぼすけ様のiKara</a>を参考に作成しました</dd>
+        <dd>「iKaraっぽい。」の実装については菅野ハリトが著作権を有しておりますが、
+        改編、転載など全て自由とします</dd>
+        <dt>履歴：</dt>
+        <dd>2015/03/02 ver.0.00.1(α)初公開</dd>
+        <dd>2016/01/07 ver.0.00.2(α)マウスホイールのイベントをIE11に対応(IE8に非対応)</dd>
+        <dd>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</dd>
+        <dd>2017/10/19 ver.0.00.4(α)バグ修正+UI調整 1曲をリピート時に歌詞が先頭に戻らないバグを修正</dd>
+        <dd>2017/11/12 iTunes12.7.1.14にて本家の復活を確認し、モダン化に向けた開発を中止。説明の表記を調整。</dd>
+      </dl>
     </div>
   </div>
 </body>

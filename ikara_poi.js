@@ -1,23 +1,24 @@
-/*ikara_poi.js iKaraっぽい。ver.0.00.4 詳細はikara_poi.htmlを参照*/
+//ikara_poi.js iKaraっぽい。ver.0.00.4 詳細はikara_poi.htmlを参照
 var state=false, ie, dom_description, dom_lyrics, iTunes, fso, currenttrackId;
 var html="ikara_poi.html";
 var lyricmaster = false;
 lyricmaster = 'C:\\Windows\\System32\\wscript.exe "C:\\Program_Free\\Lyrics Master\\ExtSupport.js" multi "[title]" "[artist]"';
-/*↑上の行を書き換え、先頭の「//」を消す*/
-/* //iTUnes12.7よりイベント接続廃止
-function ITEvent_OnPlayerPlayEvent(track){//曲の開始
-    if(!state)return;
-     display_lyrics(track);
-}
-function ITEvent_OnQuittingEvent(){
-    //    log("iTunes:終了:正常に終了しました");
-    state=false;
-}
-function ITEvent_OnAboutToPromptUserToQuitEvent(){
-    //    log("iTunes:Error:手動で終了されようとしました");
-    iTunes.Quit();
-}
-*/
+//↑上の行を書き換え、先頭の「//」を消す
+
+//iTUnes12.7よりイベント接続廃止
+// function ITEvent_OnPlayerPlayEvent(track){//曲の開始
+//     if(!state)return;
+//      display_lyrics(track);
+// }
+// function ITEvent_OnQuittingEvent(){
+//     //    log("iTunes:終了:正常に終了しました");
+//     state=false;
+// }
+// function ITEvent_OnAboutToPromptUserToQuitEvent(){
+//     //    log("iTunes:Error:手動で終了されようとしました");
+//     iTunes.Quit();
+// }
+
 function display_lyrics(track){
     if(!track){
         //dom_lyrics.innerHTML = "曲を再生してください";
