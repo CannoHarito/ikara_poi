@@ -104,10 +104,9 @@ function autoScroll(len,timeout,now){
     if(pos < 0)pos = 0;
     dom_lyrics.scrollTop = pos;
     if(len-now<1){
-        scrollState = false;
-        setTimeout(function(){
+        scrollState = setTimeout(function(){
           document.getElementById("stateManual").click();
-        },1000+(len-now)*timeout|0);
+        },5000+(len-now)*timeout|0);
         return;
     }
     scrollState = setTimeout(function(){
@@ -135,7 +134,7 @@ window.onload = function(){
     <ul>
       <li class="name">iTunes連携スクリプト「iKaraっぽい。」</li>
       <li class="artist">製作者：菅野ハリト (Twitter @canno_harito)</li>
-      <li class="album">ver0.00.4(α)</li>
+      <li class="album">ver0.00.5(α)</li>
     </ul>
   </header>
   <div id="message" class="manual">
@@ -151,7 +150,7 @@ window.onload = function(){
         <dt>実行方法：</dt>
         <dd>ikara_poi.jsをダブルクリック</dd>
         <dd>iTunesに接続するため、楽曲を再生すると自動で表示する</dd>
-        <dd>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</dd>
+        <!--<dd>IEのウィンドウを閉じるとiTunesとの接続解除するため、終了時はこちらを先に閉じる</dd>//イベント接続により解消-->
         <dt>自動送りを止める:</dt>
         <dd>マウスホイールを上下 or 右上の[Auto Scroll]をクリック</dd>
         <dt>自動送りを始める:</dt>
@@ -173,6 +172,7 @@ window.onload = function(){
         <dd>2017/10/18 ver.0.00.3(α)iTuens12.7に暫定対応 イベント接続できないため表示更新が最大1秒遅れる</dd>
         <dd>2017/10/19 ver.0.00.4(α)バグ修正+UI調整 1曲をリピート時に歌詞が先頭に戻らないバグを修正</dd>
         <dd>2017/11/12 iTunes12.7.1.14にて本家の復活を確認し、モダン化に向けた開発を中止。説明の表記を調整。</dd>
+        <dd>2018/04/14 ver.0.00.5(α)イベント接続を再実装。</dd>
       </dl>
     </div>
   </div>
