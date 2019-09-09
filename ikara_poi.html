@@ -6,7 +6,14 @@
   <meta http-equiv="X-UA-Compatible" Content="IE=edge">
   <title>iKaraっぽい。</title>
   <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+/* @import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css); */
+@font-face {
+   font-family: 'Noto Sans Japanese';
+   font-style: normal;
+   font-weight: 400;
+   src: local('Noto Sans CJK JP Regular'), local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
+        url(http://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Regular.woff) format('woff');
+ }
 html, body, div, ul, li {
     margin:0;
     padding:0;
@@ -180,6 +187,7 @@ window.onload = function(){
         <dd>2017/11/12 iTunes12.7.1.14にて本家の復活を確認し、モダン化に向けた開発を中止。説明の表記を調整。</dd>
         <dd>2018/04/14 ver.0.00.5(α)イベント接続を再実装。</dd>
         <dd>2018/10/28 表示の調整 スクロールバーを非表示,フォントNotoSansの導入</dd>
+        <dd>2019/09/09 通信の最適化 ローカルのフォントを優先するよう調整</dd>
       </dl>
     </div>
   </div>
